@@ -193,6 +193,13 @@
       <child link="${prefix}link_tcp" />
     </joint>
 
+    <link name="${prefix}link_camera_tcp" />
+    <joint name="${prefix}joint_camera_tcp" type="fixed">
+      <origin xyz="0.10459 0.03588 0.0711" rpy="0.2915 0.1855 -1.5514" />
+      <parent link="${prefix}xarm_gripper_base_link" />
+      <child link="${prefix}link_camera_tcp" />
+    </joint>
+
   </xacro:macro>
 
 </robot>
