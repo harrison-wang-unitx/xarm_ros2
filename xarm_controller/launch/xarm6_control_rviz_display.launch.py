@@ -24,6 +24,7 @@ def generate_launch_description():
     velocity_control = LaunchConfiguration('velocity_control', default=False)
     add_gripper = LaunchConfiguration('add_gripper', default=False)
     add_vacuum_gripper = LaunchConfiguration('add_vacuum_gripper', default=False)
+    extra_robot_api_params_path = LaunchConfiguration('extra_robot_api_params_path', default='')
 
     add_realsense_d435i = LaunchConfiguration('add_realsense_d435i', default=False)
 
@@ -54,6 +55,7 @@ def generate_launch_description():
             'velocity_control': velocity_control,
             'add_gripper': add_gripper,
             'add_vacuum_gripper': add_vacuum_gripper,
+            'extra_robot_api_params_path': extra_robot_api_params_path,
             'dof': '6',
             'robot_type': 'xarm',
             'add_realsense_d435i': add_realsense_d435i,
