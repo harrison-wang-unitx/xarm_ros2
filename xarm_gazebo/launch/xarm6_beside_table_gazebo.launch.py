@@ -14,6 +14,9 @@ from launch.substitutions import LaunchConfiguration, ThisLaunchFileDir
 def generate_launch_description():
     prefix = LaunchConfiguration('prefix', default='')
     hw_ns = LaunchConfiguration('hw_ns', default='xarm')
+    # Must be true for Gazebo + ros2_control so joint_state_broadcaster runs; otherwise TF
+    # from robot_state_publisher can disagree with the sim (planner sees split trees).
+    load_controller = LaunchConfiguration('load_controller', default='false')
     limited = LaunchConfiguration('limited', default=False)
     effort_control = LaunchConfiguration('effort_control', default=False)
     velocity_control = LaunchConfiguration('velocity_control', default=False)
@@ -62,9 +65,15 @@ def generate_launch_description():
             'geometry_mesh_origin_rpy': geometry_mesh_origin_rpy,
             'geometry_mesh_tcp_xyz': geometry_mesh_tcp_xyz,
             'geometry_mesh_tcp_rpy': geometry_mesh_tcp_rpy,
+            'load_controller': load_controller,
         }.items(),
     )
 
     return LaunchDescription([
-        robot_gazobo_launch
+        DeclareLaunchArgument(
+            'load_controller',
+            default_value='false',
+            description='If true, spawn joint_state_broadcaster + traj controllers after Gazebo spawn',
+        ),
+        robot_gazobo_launch,
     ])
